@@ -7,23 +7,22 @@ let isRunning = false;
 
 
 function startStopwatch(){
-if(isRunning){
+if(!isRunning){
 isRunning = true;
-timer = setInterval(updateStopwatch, 10);
+timer = setInterval(updateTime, 10);
 }
 }
 
 
 function stopStopwatch(){
-if(isRunning){
 isRunning = false;
 clearInterval(timer);
-}
 }
 
 
 function resetStopwatch(){
-stopStopwatch();
+isRunning = false;
+clearInterval(timer);
 minutes = 0;
 seconds = 0;
 milliseconds = 0;
@@ -42,5 +41,19 @@ function updateTime(){
         seconds = 0;
         minutes++;
     }
+    updateDisplay();
+
+}
+
+function updateDisplay(){
+
+    document.getElementById('minutes').textContent = formatTime(minutes);
+    document.getElementById('seconds').textContent = formatTime(seconds);
+    document.getElementById('milliseconds').textContent = formatTime(milliseconds / 10);
+
+}
+
+function formatTime(time){
+return time < 10 ? "0" + time:time;
 
 }
